@@ -11,18 +11,23 @@ import java.util.ArrayList;
 
 @Controller
 public class CustomerController {
-    private ArrayList<Customer> customers = new ArrayList<>();
+   // private ArrayList<Customer> customers = new ArrayList<>();
+    private CustomerService customerService;
+
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
 
     @GetMapping("/customer")
     public String getCustomerPage(Model model) {
-        model.addAttribute("allCustomers",customers);
+        model.addAttribute("allCustomers",customerService.getCustomers());
         return "customer"; // customer.html
     }
     @PostMapping("/customer")
     public String registerCustomer(@ModelAttribute Customer customer,
                                     Model model){
-        customers.add(customer);
-        model.addAttribute("allCustomers", customers);
+        customerService.createCustomer(customer);
+        model.addAttribute("allCustomers", customerService.getCustomers());
         return "redirect:customer";
     }
 
