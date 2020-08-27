@@ -18,7 +18,7 @@ public class CustomerService {
         customerList.add(customer);
     }
 
-    public List<Customer> getCustomers() {
+    public List<Customer> getCgiustomers() {
         return new ArrayList<>(customerList);
     }
     public Customer findCustomer(int id) {
@@ -28,7 +28,7 @@ public class CustomerService {
         }
         return null;
     }
-
+    // method
     public Customer checkPin(Customer inputCustomer) {
         // 1. หา customer ที่มี id ตรงกับพารามิเตอร์
         Customer storedCustomer = findCustomer(inputCustomer.getId());
@@ -48,4 +48,3 @@ public class CustomerService {
         return BCrypt.hashpw(pin, salt);
     }
 }
-

@@ -14,7 +14,7 @@ import th.go.rd.atm.service.CustomerService;
 public class LoginController {
 
     private CustomerService customerService;
-
+    // generate contructure
     public LoginController(CustomerService customerService) {
         this.customerService = customerService;
     }
@@ -27,6 +27,7 @@ public class LoginController {
     @PostMapping
     public String login(@ModelAttribute Customer customer, Model model) {
         // 1. เอา id กับ pin ไปเช็คกับข้อมูล customer ที่มีอยู่ ว่าตรงกันบ้างไหม
+        // method
         Customer matchingCustomer = customerService.checkPin(customer);
 
         // 2. ถ้าตรง ส่งข้อมูล customer กลับไปแสดงผล
