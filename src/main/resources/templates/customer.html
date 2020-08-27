@@ -1,36 +1,48 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Customer</title>
-    <link th:rel="stylesheet" th:href="@{css/bootstrap.min.css}">
-</head>
-<body>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/main_layout}"
+      xmlns:th="https://www.thymeleaf.org">
+
+<div class="container" layout:fragment="content">
+
+
+<div class="container">
 <h1> Register Customer </h1>
 <form action="#" th:action="@{/customer}" method="POST">
-    <label for="inputId">Id</label>
-    <input type="input" name="id" id="inputId">
-    <label for="inputName">Name</label>
-    <input type="input" name="name" id="inputName">
-    <label for="inputPin">Pin</label>
-    <input type="password" name="pin" id="inputPin">
-
-    <input type="submit">
-   </form>
+    <div class="form-group row">
+        <label class="col-md-1" for="inputId">Id</label>
+        <input type="input"  class="form-control col-md-10" name="id" id="inputId">
+    </div>
+    <div class="form-group row">
+        <label class="col-md-1" for="inputName">Name</label>
+        <input type="input"  class="form-control col-md-10" name="name" id="inputName">
+    </div>
+    <div class="form-group row">
+        <label class="col-md-1" for="inputPin">Pin</label>
+        <input type="password"  class="form-control col-md-10"  name="pin" id="inputPin">
+    </div>
+    <div class="form-group">
+        <input type="submit"   class="btn btn-primary">
+    </div>
+</form>
     <hr>
 
 <h1>All Customers</h1>
-
-<table border="1px">
-    <tr><th>Id</th> <th>Name</th><th>Pin</th></tr>
-
+    <table class="table table-bordered">
+        <thead class="thead-light">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Pin</th>
+        </tr>
+        </thead>
+        <tbody>
     <tr th:each="customer : ${allCustomers}">
         <td th:text="${customer.id}"></td>
         <td th:text="${customer.name}"></td>
         <td th:text="${customer.pin}"></td>
     </tr>
-
+        </tbody>
 </table>
-
-</body>
+</div>
 </html>
