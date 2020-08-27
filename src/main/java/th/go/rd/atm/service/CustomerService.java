@@ -1,33 +1,39 @@
 package th.go.rd.atm.service;
 
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import th.go.rd.atm.data.CustomerRepository;
 import th.go.rd.atm.model.Customer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CustomerService {
-
-    private ArrayList<Customer> customerList = new ArrayList<>();
+    private CustomerRepository repository;
+    // Conductor
+    public CustomerService(CustomerRepository repository) {
+        this.repository = repository;
+    }
 
     public void createCustomer(Customer customer) {
         String hashPin = hash(customer.getPin());
         customer.setPin(hashPin);
-        customerList.add(customer);
+        repository.save(customer);
     }
 
-    public List<Customer> getCgiustomers() {
-        return new ArrayList<>(customerList);
-    }
     public Customer findCustomer(int id) {
-        for (Customer customer : customerList) {
-            if (customer.getId() == id)
-                return customer;
+        try {
+            return repository.findById(id);
+        } catch (EmptyResultDataAccessException e){
+            return null;
         }
-        return null;
     }
+
+    public List<Customer> getCustomers() {
+        return repository.findAll();
+    }
+
     // method
     public Customer checkPin(Customer inputCustomer) {
         // 1. หา customer ที่มี id ตรงกับพารามิเตอร์
